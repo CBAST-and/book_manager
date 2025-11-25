@@ -50,3 +50,10 @@ def update_book(book_id):
     book["pdf_url"] = request.form.get("pdf_url")
 
     return redirect("/books")
+
+@books_bp.route("/books/delete/<int:book_id>", methods=["POST"])
+def delete_book(book_id):
+    global books
+    books = [b for b in books if b["id"] != book_id]
+    return redirect("/books")
+
