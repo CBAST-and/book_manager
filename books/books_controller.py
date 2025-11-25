@@ -29,3 +29,24 @@ def add_book():
 @books_bp.route("/books", methods=["GET"])
 def list_books():
     return render_template("list_books.html", books=books)
+
+@books_bp.route("/books/edit/<int:book_id>", methods=["GET"])
+def edit_book_form(book_id):
+    book = next((b for b in books if b["id"] == book_id), None)
+    if not book:
+        return "Libro no encontrado", 404
+
+    return render_template("edit_book.html", book=book)
+
+
+@books_bp.route("/books/edit/<int:book_id>", methods=["POST"])
+def update_book(book_id):
+    book = next((b for b in books if b["id"] == book_id), None)
+    if not book:
+        return "Libro no encontrado", 404
+
+    book["title"] = request.form.get("title")
+    book["author"] = request.form.get("author")
+    book["pdf_url"] = request.form.get("pdf_url")
+
+    return redirect("/books")

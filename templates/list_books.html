@@ -22,6 +22,7 @@
                 <th>Título</th>
                 <th>Autor</th>
                 <th>PDF</th>
+                <th>Acciones</th> <!--  NUEVA COLUMNA -->
             </tr>
         </thead>
         <tbody>
@@ -31,6 +32,11 @@
                 <td>{{ book.title }}</td>
                 <td>{{ book.author }}</td>
                 <td><a href="{{ book.pdf_url }}" target="_blank">Ver PDF</a></td>
+                <td>
+                    <a href="/books/edit/{{ book.id }}" class="btn btn-warning btn-sm">
+                        ✏️ Editar
+                    </a>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
