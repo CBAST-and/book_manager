@@ -57,3 +57,13 @@ def delete_book(book_id):
     books = [b for b in books if b["id"] != book_id]
     return redirect("/books")
 
+@books_bp.route("/books/search", methods=["GET"])
+def search_books():
+    query = request.args.get("q", "").lower()
+
+    filtered_books = [
+        b for b in books
+        if query in b["title"].lower() or query in b["author"].lower()
+    ]
+
+    return render_template("search_results.html", books=filtered_books, query=query)
