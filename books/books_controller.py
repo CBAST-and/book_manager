@@ -2,7 +2,7 @@ from flask import Blueprint, request, render_template, redirect
 
 books_bp = Blueprint("books", __name__)
 
-books = []
+books = []  # Base de datos temporal
 
 @books_bp.route("/books/add", methods=["GET"])
 def add_book_form():
@@ -24,3 +24,8 @@ def add_book():
     books.append(new_book)
 
     return redirect("/books/add")
+
+
+@books_bp.route("/books", methods=["GET"])
+def list_books():
+    return render_template("list_books.html", books=books)
